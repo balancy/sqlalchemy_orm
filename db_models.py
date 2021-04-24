@@ -71,7 +71,7 @@ class Post(Base):
 
     user = relationship(User, back_populates="posts")
     tags = relationship(
-        "Tag", secondary="post_tag_links",
+        "Tag", secondary="post_tag_links", back_populates="posts",
     )
 
     def __str__(self):
@@ -87,7 +87,7 @@ class Tag(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(50), nullable=False, default="", server_default="")
     posts = relationship(
-        "Post", secondary="post_tag_links",
+        "Post", secondary="post_tag_links", back_populates="tags",
     )
 
     def __str__(self):
@@ -103,12 +103,3 @@ class PostTagLink(Base):
     id = Column(Integer, primary_key=True)
     post_id = Column('post_id', Integer, ForeignKey('posts.id'))
     tag_id = Column('tag_id', Integer, ForeignKey('tags.id'))
-
-    post = relationship(
-        Post,
-        backref=backref("post_tag_links", cascade="all, delete-orphan")
-    )
-    tag = relationship(
-        Tag,
-        backref=backref("post_tag_links", cascade="all, delete-orphan")
-    )

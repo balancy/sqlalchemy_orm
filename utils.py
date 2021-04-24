@@ -22,3 +22,15 @@ def fetch_posts_from_habr():
         })
 
     return news_set
+
+
+def output_posts_by_author(username, posts):
+    print(f"\nПосты пользователя {username}:\n")
+    for number, post in enumerate(posts, start=1):
+        print(f"{number}. {post[1].title}")
+
+
+def output_tags_by_post(title, tags):
+    print(f"\nТэги поста '{title}':\n")
+    for number, tag in enumerate(tags, start=1):
+        print(f"{number}. {tag[1].title}")
