@@ -8,6 +8,8 @@ def fetch_posts_by_author(username):
         User.username == username
     ).join(User.posts).all()
 
+    Session.close()
+
     return posts
 
 
@@ -15,6 +17,8 @@ def fetch_tags_by_post(title):
     tags = Session.query(Post, Tag).filter(
         Post.title == title
     ).join(Post.tags).all()
+
+    Session.close()
 
     return tags
 
